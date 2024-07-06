@@ -1,12 +1,22 @@
+using Asp.Versioning;
 using Bll.Extensions;
 using CatApi.Extensions;
+using CatApi.Filters;
 using Dal.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options => 
+    options.Filters.Add<CustomExceptionFilter>());
+
+builder.Services.AddApiVersioning(options =>
+{
+    options.DefaultApiVersion = new ApiVersion(1, 0);
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.ReportApiVersions = true;
+});
 
 builder.Services.AddDataServices(builder.Configuration);
 builder.Services.AddBllServices();

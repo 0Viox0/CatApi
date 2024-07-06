@@ -1,19 +1,20 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Dal.Models;
+namespace CatApi.Models.Owner;
 
-public class Owner
+public class OwnerCreationModel
 {
-    public int Id { get; set; }
-    
+    [Required]
     [MaxLength(50)]
     public string Name { get; set; }
+    
+    [Required]
     public DateOnly DateOfBirth { get; set; }
     
+    [Required]
     [EmailAddress]
     public string Email { get; set; }
-    [MaxLength(30)]
+    
+    [Required] 
     public string Password { get; set; }
-
-    public ICollection<Cat> Cats { get; set; }
 }

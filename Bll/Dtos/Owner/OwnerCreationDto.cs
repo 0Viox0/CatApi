@@ -1,10 +1,7 @@
-using Bll.Dtos.Cat;
-
 namespace Bll.Dtos.Owner;
 
-public record OwnerIdDto(
-    int Id,
+public record OwnerCreationDto(
     string Name,
     DateOnly DateOfBirth,
     string Email,
-    IList<CatDto> Cats);
+    string Password);

@@ -9,8 +9,9 @@ public static class ServiceCollectionExtension
     public static IServiceCollection AddBllServices(this IServiceCollection serviceCollection)
     {
         serviceCollection
-            .AddScoped<OwnerService>()
-            .AddScoped<OwnerDtoMapper>();
+            .AddScoped<IOwnerService, OwnerService>()
+            .AddScoped<OwnerDtoMapper>()
+            .AddScoped<CatDtoMapper>();
 
         return serviceCollection;
     }

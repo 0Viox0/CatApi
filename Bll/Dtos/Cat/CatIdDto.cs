@@ -9,4 +9,5 @@ public record CatIdDto(
     DateOnly DateOfBirth,
     string Breed,
     CatColor CatColor,
-    OwnerDto OwnerDto);
+    OwnerDto? OwnerDto,
+    List<CatDto> Friends);

@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Asp.Versioning;
 using Bll.Extensions;
 using CatApi.Extensions;
@@ -9,7 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers(options => 
-    options.Filters.Add<CustomExceptionFilter>());
+    options.Filters.Add<CustomExceptionFilter>())
+    .AddJsonOptions(options =>
+        options.JsonSerializerOptions.PropertyNamingPolicy = null);
 
 builder.Services.AddApiVersioning(options =>
 {

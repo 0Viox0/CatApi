@@ -1,4 +1,5 @@
 using Bll.CustomExceptions;
+using Dal.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -11,7 +12,9 @@ public class CustomExceptionFilter : IExceptionFilter
         var statusCode = context.Exception switch
         {
             UserNotFoundException => StatusCodes.Status404NotFound,
+            CatNotFoundException => StatusCodes.Status404NotFound,
             UserAlreadyExistsException => StatusCodes.Status409Conflict,
+            InvalidCatColorException => StatusCodes.Status400BadRequest,
             _ => StatusCodes.Status500InternalServerError,
         };
 

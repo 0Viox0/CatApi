@@ -12,8 +12,8 @@ public class Cat
     public DateOnly DateOfBirth { get; set; }
     public string Breed { get; set; }
     public CatColor Color { get; set; }
-    public int OwnerId { get; set; }
+    public int? OwnerId { get; set; }
     
-    public Owner Owner { get; set; }
+    public Owner? Owner { get; set; }
     public ICollection<Cat> Friends { get; set; }
 }

@@ -1,5 +1,5 @@
 using Asp.Versioning;
-using Bll.Services;
+using Bll.Services.User;
 using CatApi.Mappers;
 using CatApi.Models.Owner;
 using Microsoft.AspNetCore.Mvc;
@@ -33,10 +33,18 @@ public class OwnerController(
     public IActionResult CreateOwner(OwnerCreationModel ownerCreationModel)
     {
         var createdOwner = ownerService
-            .CreateOwner(ownerModelMapper.ToOwnerCreatingDto(ownerCreationModel));
+            .CreateOwner(ownerModelMapper.ToOwnerCreationDto(ownerCreationModel));
 
         return Created(
             HttpContext.Request.Path,
             ownerModelMapper.ToOwnerIdModel(createdOwner));
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult DeleteOwner(int id)
+    {
+        var deletedOwner = ownerService.DeleteOwnerById(id);
+
+        return Ok(ownerModelMapper.ToOwnerIdModel(deletedOwner));
     }
 }

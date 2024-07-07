@@ -1,5 +1,6 @@
 using Bll.Mappers;
-using Bll.Services;
+using Bll.Services.Cat;
+using Bll.Services.User;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Bll.Extensions;
@@ -10,6 +11,7 @@ public static class ServiceCollectionExtension
     {
         serviceCollection
             .AddScoped<IOwnerService, OwnerService>()
+            .AddScoped<ICatService, CatService>()
             .AddScoped<OwnerDtoMapper>()
             .AddScoped<CatDtoMapper>();
 

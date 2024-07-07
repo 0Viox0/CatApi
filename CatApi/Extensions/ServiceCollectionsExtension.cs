@@ -1,6 +1,5 @@
 using CatApi.Filters;
 using CatApi.Mappers;
-using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace CatApi.Extensions;
 

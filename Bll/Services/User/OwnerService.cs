@@ -5,7 +5,7 @@ using Dal;
 using Dal.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Bll.Services;
+namespace Bll.Services.User;
 
 public class OwnerService(
     CatApiDbContext catApiDbContext,
@@ -23,6 +23,7 @@ public class OwnerService(
         var owner = catApiDbContext.Owners
             .Include(owner => owner.Cats)
             .FirstOrDefault(owner => owner.Id == id);
+        
 
         if (owner is null)
         {
@@ -35,6 +36,7 @@ public class OwnerService(
     public OwnerIdDto CreateOwner(OwnerCreationDto ownerCreationDto)
     {
         var owner = catApiDbContext.Owners
+            .AsNoTracking()
             .FirstOrDefault(o => o.Email.Equals(ownerCreationDto.Email));
 
         if (owner is not null)
@@ -53,8 +55,25 @@ public class OwnerService(
         catApiDbContext.Owners.Add(newOwner);
         catApiDbContext.SaveChanges();
 
-        newOwner.Cats = new List<Cat>();
+        newOwner.Cats = new List<Dal.Models.Cat>();
 
         return ownerDtoMapper.ToOwnerIdDto(newOwner);
+    }
+
+    public OwnerIdDto DeleteOwnerById(int id)
+    {
+        var ownerToDelete = catApiDbContext.Owners
+            .Include(o => o.Cats)
+            .FirstOrDefault(owner => owner.Id == id);
+
+        if (ownerToDelete is null)
+        {
+            throw new UserNotFoundException($"user with id {id} was not found");
+        }
+
+        catApiDbContext.Remove(ownerToDelete);
+        catApiDbContext.SaveChanges();
+
+        return ownerDtoMapper.ToOwnerIdDto(ownerToDelete);
     }
 }

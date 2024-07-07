@@ -23,8 +23,7 @@ public class OwnerModelMapper(CatModelMapper catModelMapper)
             ownerIdDto.Email,
             ownerIdDto.Cats.Select(catModelMapper.ToCatModel).ToList());
     }
-
-    public OwnerCreationDto ToOwnerCreatingDto(OwnerCreationModel ownerCreationModel)
+    public OwnerCreationDto ToOwnerCreationDto(OwnerCreationModel ownerCreationModel)
     {
         return new OwnerCreationDto(
             ownerCreationModel.Name,

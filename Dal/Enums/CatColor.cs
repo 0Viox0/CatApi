@@ -1,4 +1,5 @@
 namespace Dal.Enums;
+
 public enum CatColor
 {
     Orange,

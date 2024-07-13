@@ -13,13 +13,10 @@ public class CatController(
     ICatService catService,
     CatModelMapper catModelMapper) : ControllerBase
 {
-    // TODO: add assigning cats to users and dissociating cats from users
-    // TODO: add sorting cats by their color and breed to the GetAllCats() action method
-
     [HttpGet]
-    public IActionResult GetAllCats()
+    public IActionResult GetAllCats(string? color, string? breed)
     {
-        return Ok(catService.GetAllCats().Select(catModelMapper.ToCatModel).ToList());
+        return Ok(catService.GetAllCats(color, breed).Select(catModelMapper.ToCatModel).ToList());
     }
 
     [HttpGet("{id}")]

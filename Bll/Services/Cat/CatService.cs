@@ -2,6 +2,7 @@ using Bll.CustomExceptions;
 using Bll.Dtos.Cat;
 using Bll.Mappers;
 using Dal;
+using Dal.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bll.Services.Cat;
@@ -10,9 +11,18 @@ public class CatService(
     CatApiDbContext catApiDbContext,
     CatDtoMapper catDtoMapper) : ICatService
 {
-    public List<CatDto> GetAllCats()
+    public List<CatDto> GetAllCats(string? color, string? breed)
     {
-        return catApiDbContext.Cats.Select(catDtoMapper.ToCatDto).ToList();
+        if (!Enum.TryParse(color, true, out CatColor parsedCatColor) && color is not null)
+        {
+            throw new InvalidCatColorException($"cat color {color} is invalid");
+        }
+
+        return catApiDbContext.Cats
+            .Select(catDtoMapper.ToCatDto)
+            .Where(cat => (string.IsNullOrEmpty(color) || cat.CatColor.Equals(parsedCatColor))
+                          && (string.IsNullOrEmpty(breed) || cat.Breed.Equals(breed, StringComparison.OrdinalIgnoreCase)))
+            .ToList();
     }
 
     public CatIdDto GetCatById(int id)

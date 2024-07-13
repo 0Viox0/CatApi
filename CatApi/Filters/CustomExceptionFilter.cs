@@ -11,11 +11,13 @@ public class CustomExceptionFilter : IExceptionFilter
     {
         var statusCode = context.Exception switch
         {
-            UserNotFoundException => StatusCodes.Status404NotFound,
+            OwnerNotFoundException => StatusCodes.Status404NotFound,
             CatNotFoundException => StatusCodes.Status404NotFound,
-            UserAlreadyExistsException => StatusCodes.Status409Conflict,
+            OwnerAlreadyExistsException => StatusCodes.Status409Conflict,
             InvalidCatColorException => StatusCodes.Status400BadRequest,
-            _ => StatusCodes.Status500InternalServerError,
+            FriendsWithItselfException => StatusCodes.Status400BadRequest,
+            CatAlreadyHasAnOwner => StatusCodes.Status409Conflict,
+            _ => StatusCodes.Status500InternalServerError
         };
 
         var problemDetails = new ProblemDetails

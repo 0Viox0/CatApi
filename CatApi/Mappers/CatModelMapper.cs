@@ -27,7 +27,7 @@ public class CatModelMapper
             catIdDto.Breed,
             catIdDto.CatColor,
             catIdDto.OwnerDto is not null ? new OwnerModel(
-                catIdDto.OwnerDto!.Id,
+                catIdDto.OwnerDto.Id,
                 catIdDto.OwnerDto.Name,
                 catIdDto.OwnerDto.DateOfBirth,
                 catIdDto.OwnerDto.Name) : null,

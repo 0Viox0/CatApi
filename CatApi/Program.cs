@@ -1,4 +1,3 @@
-using System.Text.Json;
 using Asp.Versioning;
 using Bll.Extensions;
 using CatApi.Extensions;

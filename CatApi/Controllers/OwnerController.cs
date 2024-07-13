@@ -47,4 +47,28 @@ public class OwnerController(
 
         return Ok(ownerModelMapper.ToOwnerIdModel(deletedOwner));
     }
+
+    [HttpPut("{id}")]
+    public IActionResult UpdateOwner(int id, OwnerCreationModel ownerUpdateModel)
+    {
+        var ownerIdDto = ownerService.UpdateOwnerWithId(id, ownerModelMapper.ToOwnerCreationDto(ownerUpdateModel));
+
+        return Ok(ownerModelMapper.ToOwnerIdModel(ownerIdDto));
+    }
+
+    [HttpPut("{ownerId}/owns-cat/{catId}")]
+    public IActionResult AssignCatToOwner(int ownerId, int catId)
+    {
+        var ownerIdDto = ownerService.AssignCatToOwner(ownerId, catId);
+
+        return Ok(ownerModelMapper.ToOwnerIdModel(ownerIdDto));
+    }
+
+    [HttpDelete("{ownerId}/disowns-cat/{catId}")]
+    public IActionResult DisownCatFromOwner(int ownerId, int catId)
+    {
+        var ownerIdDto = ownerService.DisownCatFromOwner(ownerId, catId);
+
+        return Ok(ownerModelMapper.ToOwnerIdModel(ownerIdDto));
+    }
 }
